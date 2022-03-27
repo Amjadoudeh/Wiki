@@ -22,3 +22,23 @@ def entry(request, title):
 		"title":title,
 		"content":content
 		})
+
+
+def create(request):
+	if request.method =='POST':
+		title=request.POST.get('title')
+		content=request.POST.get('content')
+
+		if not title or not content:
+			return render(request,"encyclopedia/create.html", {
+				"message": "Title or Content is missing. Please provide both."
+				})
+
+		if title in util.list_entries():
+				return render(request,"encyclopedia/create.html", {
+				"message": "Title is already feeded."
+				})
+                
+		util.save_entry(title, content)
+		return redirect("entry", title=title)
+	return render(request, "encyclopedia/create.html")
