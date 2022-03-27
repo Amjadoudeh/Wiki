@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-# from markdown import markdown
+from markdown2 import markdown
 from random import randint
 from . import util
 
@@ -75,3 +75,7 @@ def edit(request, title):
 		"title": title,
 		"content": content
 		})
+def random(request):
+	entries=util.list_entries()
+	rand_entry = entries[randint(0, len(entries)-1)]
+	return redirect('entry', title=rand_entry)
