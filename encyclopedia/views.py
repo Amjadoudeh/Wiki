@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from markdown2 import markdown
+# from markdown import markdown
 from random import randint
 from . import util
 
@@ -38,7 +38,23 @@ def create(request):
 				return render(request,"encyclopedia/create.html", {
 				"message": "Title is already feeded."
 				})
-                
+
 		util.save_entry(title, content)
 		return redirect("entry", title=title)
 	return render(request, "encyclopedia/create.html")
+
+def search(request):
+	query=request.GET.get('q')
+	if query in util.list_entries():
+
+		return HttpResponseRedirect("wiki/"+query)
+	else:
+		substring=[]
+		for post in util.list_entries():
+
+			if query in post:
+				substring.append(post)
+
+		return render(request, "encyclopedia/index.html",{
+			"entries": substring
+			})
