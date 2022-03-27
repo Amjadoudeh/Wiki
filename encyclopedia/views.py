@@ -1,9 +1,9 @@
+from audioop import reverse
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from markdown2 import markdown
 from random import randint
 from . import util
-
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -22,7 +22,6 @@ def entry(request, title):
 		"title":title,
 		"content":content
 		})
-
 
 def create(request):
 	if request.method =='POST':
@@ -44,20 +43,21 @@ def create(request):
 	return render(request, "encyclopedia/create.html")
 
 def search(request):
-	query=request.GET.get('q')
-	if query in util.list_entries():
-
-		return HttpResponseRedirect("wiki/"+query)
+	value = request.GET.get('q','')
+	if(util.get_entry(value) is not None):
+		return HttpResponseRedirect("wiki/"+ value)
 	else:
-		substring=[]
-		for post in util.list_entries():
+		subStringEntries = []
+		for entry in util.list_entries():
+			if value.upper() in entry.upper():
+				subStringEntries.append(entry)
 
-			if query in post:
-				substring.append(post)
+		return render(request,"encyclopedia/index.html", {
+			"entries": subStringEntries,
+			"search": True,
+			"value": value
+		})
 
-		return render(request, "encyclopedia/index.html",{
-			"entries": substring
-			})
 
 def edit(request, title):
 	content=util.get_entry(title)
