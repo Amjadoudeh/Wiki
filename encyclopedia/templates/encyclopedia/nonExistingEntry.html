@@ -1,5 +1,4 @@
 {% extends "encyclopedia/layout.html" %}
-{% load markdown_deux_tags %}
 
 {% block title %}
     Encyclopedia
@@ -9,9 +8,5 @@
 	<label class="h1">Page doesn't exist</label>
 	<div>
 		<label class="body">{{entryTitle|safe}} was not found!</label>
-	</div>
-   
-	<div>
-		<a href="{% url 'newPage' %}">Create this page</a>
 	</div>
 {% endblock %}

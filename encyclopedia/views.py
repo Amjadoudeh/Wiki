@@ -42,40 +42,42 @@ def create(request):
 		return redirect("entry", title=title)
 	return render(request, "encyclopedia/create.html")
 
+
 def search(request):
-	value = request.GET.get('q','')
-	# s
-	if(util.get_entry(value) is not None):
-		return HttpResponseRedirect("wiki/"+ value)
-	else:
-		subStringEntries = []
-		for entry in util.list_entries():
-			if value.upper() in entry.upper():
-				subStringEntries.append(entry)
-
-		return render(request,"encyclopedia/index.html", {
-			"entries": subStringEntries,
-			"search": True,
-			"value": value
-		})
-
+	if request.method == 'GET':
+		input = request.GET.get('q')
+		entries = util.list_entries()
+		search_pages = []
+		for entry in entries:
+			if input.upper() in entry.upper():
+				search_pages.append(entry)
+		for entry in entries:
+			if input.upper() == entry.upper():
+				return render(request, "encyclopedia/entry.html",{
+					"entry": input, 
+					"entryTitle": input
+				})
+			elif search_pages != []:
+				return render(request, "encyclopedia/search.html",{
+					"entries": search_pages
+					})
+			else:
+				return render(request, "encyclopedia/nonExistingEntry.html",{
+					"entryTitle": input
+					})
 
 def edit(request, title):
 	content=util.get_entry(title)
 	if request.method=='POST':
-
 		content = request.POST.get("content")
-
 		title=request.POST.get("title")
-
 		util.save_entry(title, content)
-
 		return redirect("entry", title=title)
-
 	return render(request, "encyclopedia/edit.html",{
 		"title": title,
 		"content": content
 		})
+
 def random(request):
 	entries=util.list_entries()
 	rand_entry = entries[randint(0, len(entries)-1)]

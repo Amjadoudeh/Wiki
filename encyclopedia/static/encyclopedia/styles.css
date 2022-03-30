@@ -1,6 +1,7 @@
 body {
     margin: 0;
     background-color: white;
+    font-family: 'Times New Roman';
 }
 
 code {
@@ -20,6 +21,7 @@ textarea {
 ul, li {
     list-style: none; 
     color: rgb(42, 27, 211);
+    font-family: 'Times New Roman', Times, serif;
 }
 .main {
     padding: 10px;
