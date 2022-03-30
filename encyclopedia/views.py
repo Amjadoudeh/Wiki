@@ -44,8 +44,7 @@ def create(request):
 
 def search(request):
 	value = request.GET.get('q','')
-	# if(util.get_entry(value)is None):
-	# 		return HttpResponseRedirect("wiki/"+ "NOTFOUND")
+	# s
 	if(util.get_entry(value) is not None):
 		return HttpResponseRedirect("wiki/"+ value)
 	else:
