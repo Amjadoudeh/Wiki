@@ -1,3 +1,3 @@
 # iOSing 
 
-means doing iOS apps
+Means creating apps for iOS!  

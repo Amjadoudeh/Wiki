@@ -18,7 +18,7 @@ textarea {
     width: 80%;
 }
 
-ul, li {
+ul{
     list-style: none; 
     color: rgb(42, 27, 211);
     font-family: 'Times New Roman', Times, serif;
