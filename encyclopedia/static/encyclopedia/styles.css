@@ -23,6 +23,10 @@ ul, li {
     color: rgb(42, 27, 211);
     font-family: 'Times New Roman', Times, serif;
 }
+.font {
+    font-weight: bold;
+    font-size: large;
+}
 .main {
     padding: 10px;
 }

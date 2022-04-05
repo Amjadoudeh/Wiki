@@ -13,9 +13,9 @@
 	    <div class="form" method="post" action='create'>
 	    	{% csrf_token%}
 	    	<label for="title">Title</label>
-	    	<input type="text" class="form-control" name="title" placeholder="Title of the page" 
+	    	<input type="text" class="form-control" class="font" name="title" placeholder="Title of the page" 
 	        {%if title%}
-	        value="{{ title }}"
+	        value="{{title}}"
 	        {%endif%}
 	        />
 	        <label for="content">Content</label>
